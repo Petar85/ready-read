@@ -1,7 +1,9 @@
 const inquirer = require("inquirer")
 const fs = require("fs");
 
-inquirer.prompt([
+
+
+const questions = inquirer.prompt([
     {
         type:"input",
         name:"title",
@@ -10,18 +12,18 @@ inquirer.prompt([
     {
         type:"input",
         name:"description",
-        message:"In short, how would you describe your project",
+        message:"In short, how would you describe your project?",
     },
     {
 
         type:"input",
-        name:"table",
-        message:"What is table of contets?",
+        name:"table of contents",
+        message:"What is the content of your project?",
     },
     {
         type:"input",
-        name:"instalation",
-        message:"How would you install it",
+        name:"installation",
+        message:"How would you install it?",
     },
     {
     
@@ -32,7 +34,7 @@ inquirer.prompt([
     { 
         type:"input",
         name:"license",
-        message:"What license does it need?",  
+        message:"What license do you have?",  
 
     }, 
     {
@@ -67,7 +69,7 @@ inquirer.prompt([
 })
 
 
-function generateHtml(userAnsw) {
+function generateHtml(answers) {
    return `<!doctype html>
    <html lang="en">
      <head>
@@ -82,15 +84,16 @@ function generateHtml(userAnsw) {
      </head>
      <body>
        <ul class="list-group list-group-horizontal-xl">
-         <h4 class="list-group-item">Title: ${userAnsw.title}</h4>
-         <h4 class="list-group-item">Description: ${userAnsw.description}</h4>
-         <h4 class="list-group-item">Table of Contents: ${userAnsw.table}</h4>
-         <h4 class="list-group-item">Installation: ${userAnsw.installation}</h4>
-         <h4 class="list-group-item">Usage: ${userAnsw.usage}</h4>
-         <h4 class="list-group-item">License: ${userAnsw.license}</h4>
-         <h4 class="list-group-item">Contributing: ${userAnsw.cobtributing}</h4>
-         <h4 class="list-group-item">Tests: ${userAnsw.tests}</h4>
-         <h4 class="list-group-item">Questions: ${userAnsw.questions}</h4>
+         <h4 class="list-group-item">Title: ${answers.title}</h4>
+         <h4 class="list-group-item">Description: ${answers.description}</h4>
+         <h4 class="list-group-item">Table of Contents: ${answers.contents}</h4>
+        
+         <h4 class="list-group-item">Installation: ${answers.installation}</h4>
+         <h4 class="list-group-item">Usage: ${answers.usage}</h4>
+         <h4 class="list-group-item">License: ${answers.license}</h4>
+         <h4 class="list-group-item">Contributing: ${answers.contributing}</h4>
+         <h4 class="list-group-item">Tests: ${answers.tests}</h4>
+         <h4 class="list-group-item">Questions: ${answers.questions}</h4>
        </ul>
        
    
@@ -102,6 +105,19 @@ function generateHtml(userAnsw) {
      </body>
    </html>`
 
+}
+
+const readMe = function generateMarkdown(answers) {
+    return `# title ${answers.title}
+            # description ${answers.description}
+            # contents ${answers.contents}
+            # installation ${answers.installation}
+            # usage ${answers.usage}
+            # license ${answers.license}
+            # contributing ${answers.contributing}
+            # tests ${answers.tests}
+            # questions ${answers.questions}`
+    
 }
 
 
